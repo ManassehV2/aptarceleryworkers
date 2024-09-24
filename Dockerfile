@@ -14,4 +14,5 @@ COPY . /app
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-CMD ["celery", "-A", "app.celery.celery_app", "worker", "--loglevel=info", "--concurrency=4"]
+    CMD ["celery", "-A", "app.celery.celery_app", "worker", "--loglevel=info", "--concurrency=4", "-Q", "main-queue"]
+
