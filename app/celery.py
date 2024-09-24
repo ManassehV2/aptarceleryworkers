@@ -1,4 +1,5 @@
 import multiprocessing
+import os
 from celery import Celery
 
 multiprocessing.set_start_method('fork', force=True)
@@ -6,8 +7,8 @@ multiprocessing.set_start_method('fork', force=True)
 # Initialize Celery application
 celery_app = Celery(
     "detection_tasks",
-    broker="redis://localhost:6379/0",
-    backend="redis://localhost:6379/0"
+    broker=os.getenv("CELERY_BROKER_URL", "redis://redis:6379/0"),
+    backend=os.getenv("CELERY_RESULT_BACKEND", "redis://redis:6379/0")
 )
 
 # Celery configurations
